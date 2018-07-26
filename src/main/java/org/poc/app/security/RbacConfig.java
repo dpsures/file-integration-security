@@ -8,21 +8,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 @Configuration
 @EnableWebSecurity
 public class RbacConfig extends WebSecurityConfigurerAdapter {
 
 	/**
-	 * Configure security for http request - CSRF token validation & Role based access to specific endpoints
+	 * Configure security for http request - Role based access to specific endpoints
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.addFilterAfter(new CsrfTokenFilter(), CsrfFilter.class)
+		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/api/file/**").hasRole("ADMIN")
+		.antMatchers("/api/file/download").hasRole("ADMIN")
 		.antMatchers("/api/**").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic();

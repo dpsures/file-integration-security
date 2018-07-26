@@ -8,7 +8,7 @@ server:
   contextPath: /fileIntegration
 
 ftp:
- host: 192.168.0.3
+ host: 192.168.0.2
  username: ftp-user
  password: ftp-user
  port: 21
